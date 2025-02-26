@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>🚀 Rocket Landing - Genetic Algorithm (Infinite Simulation)</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <h2>🚀 Rocket Landing - Genetic Algorithm (Infinite Simulation)</h2>
+  <canvas id="canvas" width="600" height="600"></canvas>
+
+  <div class="controls">
+    <div class="slider-container">
+      <label>🎯 Landing X:</label>
+      <input type="range" id="landingX" min="50" max="550" value="300">
+      <span id="landingXVal">300</span>
+    </div>
+    <div class="slider-container">
+      <label>⚠️ Obstacle X:</label>
+      <input type="range" id="obstacleX" min="50" max="550" value="150">
+      <span id="obstacleXVal">150</span>
+    </div>
+    <div class="slider-container">
+      <label>⚠️ Obstacle Size:</label>
+      <input type="range" id="obstacleSize" min="20" max="100" value="50">
+      <span id="obstacleSizeVal">50</span>
+    </div>
+    <div class="slider-container">
+      <label>🌬️ Wind Speed:</label>
+      <input type="range" id="wind" min="-1" max="1" step="0.1" value="0">
+      <span id="windVal">0</span>
+    </div>
+    <div class="slider-container">
+      <label>⏩ Sim Speed:</label>
+      <input type="range" id="simSpeed" min="0.5" max="3" step="0.1" value="1">
+      <span id="simSpeedVal">1</span>
+    </div>
+    <div class="slider-container">
+      <label>⌛ Generation Time:</label>
+      <input type="range" id="genTime" min="50" max="600" step="50" value="300">
+      <span id="genTimeVal">300</span>
+    </div>
+    <div>
+      <button id="startBtn">Start</button>
+      <button id="pauseBtn">Pause</button>
+      <button id="resetBtn">Reset</button>
+      <button id="forceEndBtn">Force End Gen</button>
+      <button id="replayBtn">Replay Best Iteration</button>
+    </div>
+    <div class="status">
+      <p>
+        Generation: <span id="generation">0</span> | 
+        Best Error: <span id="bestError">0</span>
+      </p>
+      <p>
+        Events: Landed: <span id="landedCount">0</span> | 
+        Crashed: <span id="crashedCount">0</span> | 
+        Timed Out: <span id="timeoutCount">0</span> | 
+        Total: <span id="totalCount">0</span>
+      </p>
+      <p>Status: <span id="statusText">Inactive</span></p>
+    </div>
+  </div>
+
+  <div class="explanation">
+    <p><strong>Movement & Control:</strong> Each rocket applies a "DNA" force (a predetermined control vector) each frame, along with added forces from gravity and wind. A rocket is considered "landed" if it lands close to the landing pad (within 10 pixels horizontally and near the bottom of the canvas) and "crashed" if it collides with an obstacle or leaves the canvas. If time runs out, it is marked as "timed out."</p>
+    <p><strong>Fitness & Error Calculation:</strong> The fitness of a rocket is based on its error (i.e., distance from the landing pad). Previously, the error was calculated as the horizontal difference from Landing X. It is now computed as the Euclidean distance from the rocket's current position to the center of the landing pad at (landingX, canvas.height – 20). Hence: error = √[(rocket.pos.x – landingX)² + (rocket.pos.y – (canvas.height – 20))²]. This trigonometric approach provides a more accurate assessment of how far each rocket is from the target landing area.</p>
+    <p><strong>Genetic Algorithm:</strong> When 25 rockets finish (land, crash, or time out), their fitness values are calculated, the best performers are selected, and a new generation is automatically produced. This simulation is inspired by the stochastic control concepts of Lars Blackmore at MIT. However, it is simplified by ignoring certain factors (such as atmospheric variations, engine thrust variations, and rocket angle compensation) while taking into account wind speed and gravity.</p>
+  </div>
+
+  <script src="js/rocket.js"></script>
+  <script src="js/simulation.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
