@@ -12,7 +12,8 @@ A JavaScript simulation that demonstrates how genetic algorithms can be used to 
 - Replay functionality for the best landing trajectory
 
 ## How It Works
-
+![alt text](images/interface.png)
+![alt text](images/controls.png)
 ### Movement & Control
 Each rocket applies a "DNA" force (a predetermined control vector) each frame, along with added forces from gravity and wind. A rocket is considered "landed" if it lands close to the landing pad (within 10 pixels horizontally and near the bottom of the canvas) and "crashed" if it collides with an obstacle or leaves the canvas. If time runs out, it is marked as "timed out."
 
